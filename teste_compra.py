@@ -12,4 +12,12 @@ print(compra_supermercado)
 print()
 
 compra_amazon = CompraCredito(1000.0, '15/02/2023 19:46:17', 'Amazon', 'Casa', visa, 10)
-print(f'Compra a crédito: {compra_amazon.valor} em {compra_amazon.quantidade_parcelas}x de {compra_amazon.valor_parcela}')
+print(
+    f'Compra a crédito: {compra_amazon.valor} em {compra_amazon.quantidade_parcelas}x de {compra_amazon.valor_parcela}')
+
+fatura = [compra_farmacia, compra_restaurante, compra_supermercado, compra_amazon]
+total = 0
+for compra in fatura:
+    total += compra.valor
+
+print(f'O total da fatura é: {total}')

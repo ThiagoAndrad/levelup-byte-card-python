@@ -43,4 +43,9 @@ class Cartao:
 
 
 class Compra:
-    pass
+    def __init__(self, valor, data, estabelecimento, categoria, cartao):
+        self.__valor = valor
+        self.__data = data
+        self.__estabelecimento = estabelecimento
+        self.__categoria = categoria
+        self.__cartao = cartao

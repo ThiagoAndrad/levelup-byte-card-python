@@ -18,3 +18,9 @@ print(mastercard.cvv)
 print(mastercard.limite)
 print(mastercard.cliente)
 print(mastercard.status)
+
+visa.cancela()
+mastercard.cancela()
+
+print(visa.status)
+print(mastercard.status)

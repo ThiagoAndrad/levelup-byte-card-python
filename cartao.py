@@ -6,3 +6,9 @@ class Cartao:
         self.validade = validade
         self.numero = numero
         self.status = 'ATIVO'
+
+    def cancela(self):
+        self.status = 'CANCELADO'
+
+    def ativa(self):
+        self.status = 'ATIVO'

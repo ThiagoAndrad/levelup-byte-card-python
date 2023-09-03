@@ -30,3 +30,5 @@ mastercard.limite = 7500.0
 
 print(visa.limite)
 print(mastercard.limite)
+
+cartao_invalido = Cartao('3333 3333 3333 3333', '5/29', '887', 10000.0, 'Bruce Wayne')

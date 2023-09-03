@@ -1,3 +1,6 @@
+import re
+
+
 class Cartao:
     def __init__(self, numero, validade, cvv, limite, cliente):
         self.__cliente = cliente
@@ -6,6 +9,10 @@ class Cartao:
         self.__validade = validade
         self.__numero = numero
         self.__status = 'ATIVO'
+
+        padrao_validade = re.compile('[0-9]{2}/[0-9]{4}')
+        if not padrao_validade.match(self.__validade):
+            print(f'Cartão com validade inválida: {self.__validade}')
 
     @property
     def numero(self):

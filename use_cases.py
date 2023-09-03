@@ -11,3 +11,9 @@ banco_cartoes = [cartao1, cartao2, cartao3]
 
 def lista_cartoes():
     return banco_cartoes
+
+
+def pesquisa_cartao_por_id(id):
+    for cartao in banco_cartoes:
+        if cartao.id == id:
+            return cartao

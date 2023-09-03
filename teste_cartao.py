@@ -24,3 +24,9 @@ mastercard.cancela()
 
 print(visa.status)
 print(mastercard.status)
+
+visa.limite = 5000.0
+mastercard.limite = 7500.0
+
+print(visa.limite)
+print(mastercard.limite)

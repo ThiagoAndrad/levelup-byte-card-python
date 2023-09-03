@@ -31,8 +31,13 @@ class Cartao:
     def status(self):
         return self.__status
 
+    @limite.setter
+    def limite(self, limite):
+        self.__limite = limite
+
     def cancela(self):
         self.__status = 'CANCELADO'
 
     def ativa(self):
         self.__status = 'ATIVO'
+

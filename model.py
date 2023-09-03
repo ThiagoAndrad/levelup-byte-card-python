@@ -1,6 +1,3 @@
-import re
-
-
 class Cartao:
     def __init__(self, numero, validade, cvv, limite, cliente):
         self.__cliente = cliente
@@ -9,10 +6,6 @@ class Cartao:
         self.__validade = validade
         self.__numero = numero
         self.__status = 'ATIVO'
-
-        padrao_validade = re.compile('[0-9]{2}/[0-9]{4}')
-        if not padrao_validade.match(self.__validade):
-            print(f'Cartão com validade inválida: {self.__validade}')
 
     @property
     def numero(self):
@@ -59,9 +52,9 @@ class Compra:
 
         if len(self.__estabelecimento) > 10:
             print(f'Nome do estabelecimento grande: {self.__estabelecimento}')
-        elementos_da_data = self.__data.split(' ')
-        dia_da_compra = elementos_da_data[0]
-        hora_da_compra = elementos_da_data[1]
+
+        dia_da_compra = self.__data.strftime('%d/%m/%Y')
+        hora_da_compra = self.__data.strftime('%H:%M:%S')
         print(f'Compra realizada no dia {dia_da_compra} na hora {hora_da_compra}')
 
     @property

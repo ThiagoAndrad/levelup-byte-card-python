@@ -8,3 +8,7 @@ cartao_inexistente = use_cases.pesquisa_cartao_por_id(1000)
 
 print(f'Cartão existente: {cartao_existente}')
 print(f'Cartão existente: {cartao_inexistente}')
+
+use_cases.cadastra_cartao('Diana Prince', 5500.0)
+for cartao in use_cases.lista_cartoes():
+    print(cartao)

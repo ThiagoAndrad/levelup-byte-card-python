@@ -52,6 +52,10 @@ class Compra:
 
         if len(self.__estabelecimento) > 10:
             print(f'Nome do estabelecimento grande: {self.__estabelecimento}')
+        elementos_da_data = self.__data.split(' ')
+        dia_da_compra = elementos_da_data[0]
+        hora_da_compra = elementos_da_data[1]
+        print(f'Compra realizada no dia {dia_da_compra} na hora {hora_da_compra}')
 
     @property
     def valor(self):

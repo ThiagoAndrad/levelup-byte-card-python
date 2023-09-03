@@ -41,3 +41,6 @@ class Cartao:
     def ativa(self):
         self.__status = 'ATIVO'
 
+
+class Compra:
+    pass

@@ -46,9 +46,12 @@ class Compra:
     def __init__(self, valor, data, estabelecimento, categoria, cartao):
         self.__valor = valor
         self.__data = data
-        self.__estabelecimento = estabelecimento
-        self.__categoria = categoria
+        self.__estabelecimento = estabelecimento.strip()
+        self.__categoria = categoria.strip()
         self.__cartao = cartao
+
+        if len(self.__estabelecimento) > 10:
+            print(f'Nome do estabelecimento grande: {self.__estabelecimento}')
 
     @property
     def valor(self):

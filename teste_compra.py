@@ -1,4 +1,4 @@
-from model import Compra, Cartao
+from model import Compra, Cartao, CompraCredito
 
 visa = Cartao('1111 1111 1111 1111', '01/2031', '321', 1000.0, 'Steve Rogers')
 
@@ -10,3 +10,6 @@ print(compra_farmacia)
 print(compra_restaurante)
 print(compra_supermercado)
 print()
+
+compra_amazon = CompraCredito(1000.0, '15/02/2023 19:46:17', 'Amazon', 'Casa', visa, 10)
+print(f'Compra a crédito: {compra_amazon.valor} em {compra_amazon.quantidade_parcelas}x de {compra_amazon.valor_parcela}')

@@ -49,3 +49,29 @@ class Compra:
         self.__estabelecimento = estabelecimento
         self.__categoria = categoria
         self.__cartao = cartao
+
+    @property
+    def valor(self):
+        return self.__valor
+
+    def __str__(self):
+        return f'Compra: {self.__valor} no dia {self.__data} em {self.__estabelecimento} no cartão {self.__cartao.numero}'
+
+
+class CompraCredito(Compra):
+
+    def __init__(self, valor, data, estabelecimento, categoria, cartao, quantidade_parcelas):
+        super().__init__(valor, data, estabelecimento, categoria, cartao)
+        self.__quantidade_parcelas = quantidade_parcelas
+
+    @property
+    def valor(self):
+        return super().valor * 1.1
+
+    @property
+    def quantidade_parcelas(self):
+        return self.__quantidade_parcelas
+
+    @property
+    def valor_parcela(self):
+        return self.valor / self.quantidade_parcelas

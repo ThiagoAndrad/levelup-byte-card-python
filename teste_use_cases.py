@@ -19,3 +19,11 @@ use_cases.cadastra_compra(2, 150.0, 'Lazer', 'Show de pagode')
 use_cases.cadastra_compra(3, 200.0, 'Alimentação', 'Rodízio de comida japonesa')
 use_cases.cadastra_compra(3, 250.0, 'Lazer', 'Show de rock')
 use_cases.cadastra_compra(3, 300.0, 'Educação', 'Assinatura da Alura')
+
+for compra in use_cases.lista_compras():
+    print(compra)
+
+gastos_pos_categoria = use_cases.monta_relatorio_gastos_por_categoria()
+for categoria, total in gastos_pos_categoria.items():
+    print('Gastos por categoria:')
+    print(categoria, '-', total)

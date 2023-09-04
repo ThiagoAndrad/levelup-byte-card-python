@@ -70,6 +70,10 @@ class Compra:
     def valor(self):
         return self.__valor
 
+    @property
+    def categoria(self):
+        return self.__categoria
+
     def __str__(self):
         return f'Compra: {self.__valor} no dia {self.__data} em {self.__estabelecimento} no cartão {self.__cartao.numero}'
 

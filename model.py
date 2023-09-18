@@ -61,7 +61,7 @@ class Compra:
     def __init__(self, valor, data, estabelecimento, categoria, cartao, id=None):
         self.__valor = valor
         self.__data = data
-        self.__estabelecimento = estabelecimento.strip()
+        self.__set__estabelecimento(estabelecimento)
         self.__categoria = categoria.strip()
         self.__cartao = cartao
         self.__id = id
@@ -73,6 +73,14 @@ class Compra:
     @property
     def categoria(self):
         return self.__categoria
+
+    def __set__estabelecimento(self, estabelecimento):
+        limite_caracteres = 30
+        tamanho_estabelecimento = len(estabelecimento)
+        if tamanho_estabelecimento > limite_caracteres:
+            raise ValueError(
+                f'Estabelecimento com {tamanho_estabelecimento} caracteres é superior ao limite de {limite_caracteres} caracteres')
+        self.__estabelecimento = estabelecimento.strip()
 
     def __str__(self):
         return f'Compra: {self.__valor} no dia {self.__data} em {self.__estabelecimento} no cartão {self.__cartao.numero}'

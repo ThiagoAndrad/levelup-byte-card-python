@@ -9,8 +9,8 @@ class Cartao:
         self.__numero = numero
         self.__validade = validade
         self.__cvv = cvv
-        self.__limite = limite
-        self.__cliente = cliente
+        self.__set__limite(limite)
+        self.__set_cliente(cliente)
         self.__status = 'ATIVO'
         self.__id = id
 
@@ -42,6 +42,12 @@ class Cartao:
 
     @limite.setter
     def limite(self, limite):
+        self.__limite(limite)
+
+    def __set__limite(self, limite):
+        limite_minimo = 10
+        if limite < limite_minimo:
+            raise ValueError(f'O limite deve ser de no mínimo {limite_minimo}')
         self.__limite = limite
 
     @property
@@ -51,6 +57,16 @@ class Cartao:
     @property
     def status(self):
         return self.__status
+
+    def __set_cliente(self, cliente):
+        if cliente is None:
+            raise ValueError('Cliente é obrigatório')
+        if len(cliente) < 2:
+            raise ValueError('Cliente com caracteres insuficientes')
+        nomes = cliente.split()
+        if len(nomes) < 2:
+            raise ValueError('Cliente deve ter nome e sobrenome')
+        self.__cliente = cliente
 
     def __str__(self):
         return f'Cartão(#{self.id}) {self.numero} do(a) {self.cliente} com limite de {self.limite} válido até {self.validade}'

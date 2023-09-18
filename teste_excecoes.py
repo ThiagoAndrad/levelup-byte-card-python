@@ -20,3 +20,23 @@ except Exception as e:
 
 for compra in use_cases.lista_compras():
     print(compra)
+
+try:
+    use_cases.cadastra_cartao('Peter Parker', 9)
+except Exception as e:
+    print(e)
+
+try:
+    use_cases.cadastra_cartao('Peter', 10)
+except Exception as e:
+    print(e)
+
+try:
+    use_cases.cadastra_cartao(None, 10)
+except Exception as e:
+    print(e)
+
+try:
+    use_cases.cadastra_cartao("P", 10)
+except Exception as e:
+    print(e)

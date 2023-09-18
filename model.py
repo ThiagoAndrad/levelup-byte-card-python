@@ -59,11 +59,11 @@ class Cartao:
 class Compra:
 
     def __init__(self, valor, data, estabelecimento, categoria, cartao, id=None):
-        self.__valor = valor
+        self.__set__valor(valor)
         self.__data = data
         self.__set__estabelecimento(estabelecimento)
         self.__categoria = categoria.strip()
-        self.__cartao = cartao
+        self.__set__cartao(cartao)
         self.__id = id
 
     @property
@@ -73,6 +73,16 @@ class Compra:
     @property
     def categoria(self):
         return self.__categoria
+
+    def __set__valor(self, valor):
+        if valor <= 0:
+            raise ValueError(f"O valor {valor} deve ser superior a zero")
+        self.__valor = valor
+
+    def __set__cartao(self, cartao):
+        if cartao is None:
+            raise ValueError("É obrigatório um cartão")
+        self.__cartao = cartao
 
     def __set__estabelecimento(self, estabelecimento):
         limite_caracteres = 30

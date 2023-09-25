@@ -18,6 +18,11 @@ try:
 except Exception as e:
     print(e)
 
+try:
+    use_cases.cadastra_compra(1, 50_000.0, 'Alimentação', 'Pizza Dois Pedaços')
+except Exception as e:
+    print(e)
+
 for compra in use_cases.lista_compras():
     print(compra)
 

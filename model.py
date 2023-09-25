@@ -1,6 +1,7 @@
 from random import randint
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from excecoes import ValorExcedidoException
 
 
 class Cartao:
@@ -81,6 +82,7 @@ class Compra:
         self.__categoria = categoria.strip()
         self.__set__cartao(cartao)
         self.__id = id
+        self.valida_compra()
 
     @property
     def valor(self):
@@ -107,6 +109,13 @@ class Compra:
             raise ValueError(
                 f'Estabelecimento com {tamanho_estabelecimento} caracteres é superior ao limite de {limite_caracteres} caracteres')
         self.__estabelecimento = estabelecimento.strip()
+
+    def valida_compra(self):
+        limite = self.__cartao.limite
+        valor = self.__valor
+        if valor > limite:
+            valor_excedido = valor - limite
+            raise ValorExcedidoException(f'O valor da compra excedeu ${valor_excedido} do limite')
 
     def __str__(self):
         return f'Compra: {self.__valor} no dia {self.__data} em {self.__estabelecimento} no cartão {self.__cartao.numero}'

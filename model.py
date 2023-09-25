@@ -1,6 +1,3 @@
-from random import randint
-from datetime import date
-from dateutil.relativedelta import relativedelta
 from excecoes import ValorExcedidoException
 
 
@@ -138,18 +135,3 @@ class CompraCredito(Compra):
     @property
     def valor_parcela(self):
         return self.valor / self.quantidade_parcelas
-
-
-def cria_numero_do_cartao():
-    grupos_de_numeros = [f'{randint(1, 9999):04}' for i in range(4)]
-    return ' '.join(grupos_de_numeros)
-
-
-def cria_cvv_do_cartao():
-    cvv = f'{randint(1, 999):03}'
-    return cvv
-
-
-def define_validade_do_cartao():
-    validade = date.today() + relativedelta(years=4, months=6, day=31)
-    return validade

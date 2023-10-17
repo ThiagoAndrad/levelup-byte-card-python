@@ -19,6 +19,14 @@ class Cartao:
         self.__status = 'ATIVO'
 
     @property
+    def is_ativo(self):
+        return self.status == 'ATIVO'
+
+    @property
+    def is_cancelado(self):
+        return self.status == 'CANCELADO'
+
+    @property
     def id(self):
         return self.__id
 
@@ -40,7 +48,7 @@ class Cartao:
 
     @limite.setter
     def limite(self, limite):
-        self.__limite(limite)
+        self.__set__limite(limite)
 
     def __set__limite(self, limite):
         limite_minimo = 10

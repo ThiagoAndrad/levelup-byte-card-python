@@ -79,3 +79,18 @@ def monta_relatorio_gastos_por_categoria():
         gasto_por_categoria[compra.categoria] += compra.valor
 
     return gasto_por_categoria
+
+
+def define_limite(cartao_id, limite):
+    cartao = pesquisa_cartao_por_id(cartao_id)
+    cartao.limite = limite
+
+
+def cancela_cartao(cartao_id):
+    cartao = pesquisa_cartao_por_id(cartao_id)
+    cartao.cancela()
+
+
+def ativa_cartao(cartao_id):
+    cartao = pesquisa_cartao_por_id(cartao_id)
+    cartao.ativa()

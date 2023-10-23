@@ -1,22 +1,33 @@
+from datetime import date
+
+from sqlalchemy import String, Numeric, Date
+from sqlalchemy.orm import Mapped, mapped_column
+
+from database import db
 from excecoes import ValorExcedidoException
 
 
-class Cartao:
+class Cartao(db.Model):
+    __tablename__ = "cartoes"
 
-    def __init__(self, numero, validade, cvv, limite, cliente, id=None):
-        self.__numero = numero
-        self.__validade = validade
-        self.__cvv = cvv
-        self.__set__limite(limite)
-        self.__set_cliente(cliente)
-        self.__status = 'ATIVO'
-        self.__id = id
+    id: Mapped[int] = mapped_column(primary_key=True)
+    numero: Mapped[str] = mapped_column(String(30))
+    cvv: Mapped[str] = mapped_column(String(3))
+
+    limite: Mapped[float] = mapped_column(Numeric(precision=15, scale=2))
+    validade: Mapped[date] = mapped_column(Date())
+
+    cliente: Mapped[str] = mapped_column(String(255))
+    status: Mapped[str] = mapped_column(String(100))
+
+    def __init__(self, **kwargs):
+        super().__init__(status='ATIVO', **kwargs)
 
     def cancela(self):
-        self.__status = 'CANCELADO'
+        self.status = 'CANCELADO'
 
     def ativa(self):
-        self.__status = 'ATIVO'
+        self.status = 'ATIVO'
 
     @property
     def is_ativo(self):
@@ -26,56 +37,11 @@ class Cartao:
     def is_cancelado(self):
         return self.status == 'CANCELADO'
 
-    @property
-    def id(self):
-        return self.__id
-
-    @property
-    def numero(self):
-        return self.__numero
-
-    @property
-    def validade(self):
-        return self.__validade
-
-    @property
-    def cvv(self):
-        return self.__cvv
-
-    @property
-    def limite(self):
-        return self.__limite
-
-    @limite.setter
-    def limite(self, limite):
-        self.__set__limite(limite)
-
-    def __set__limite(self, limite):
-        limite_minimo = 10
-        if limite < limite_minimo:
-            raise ValueError(f'O limite deve ser de no mínimo {limite_minimo}')
-        self.__limite = limite
-
-    @property
-    def cliente(self):
-        return self.__cliente
-
-    @property
-    def status(self):
-        return self.__status
-
-    def __set_cliente(self, cliente):
-        if cliente is None:
-            raise ValueError('Cliente é obrigatório')
-        if len(cliente) < 2:
-            raise ValueError('Cliente com caracteres insuficientes')
-        nomes = cliente.split()
-        if len(nomes) < 2:
-            raise ValueError('Cliente deve ter nome e sobrenome')
-        self.__cliente = cliente
-
     def __str__(self):
         return f'Cartão(#{self.id}) {self.numero} do(a) {self.cliente} com limite de {self.limite} válido até {self.validade}'
+
+    def __repr__(self) -> str:
+        return f'Cartao(id={self.id!r}, numero={self.numero!r}, cvv={self.cvv!r}, validade={self.validade!r}, limite={self.limite!r}, cliente={self.cliente!r}, status={self.status!r})'
 
 
 class Compra:

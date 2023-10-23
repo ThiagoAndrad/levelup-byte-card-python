@@ -1,8 +1,14 @@
 from flask import Flask, redirect, render_template, request
 
 import use_cases
+from database import db
 
 app = Flask(__name__)
+
+# Configura banco de dados
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost:3306/byte_card'
+app.config['SQLALCHEMY_ECHO'] = True
+db.init_app(app)
 
 
 @app.route('/')

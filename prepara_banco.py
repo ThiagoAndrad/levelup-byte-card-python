@@ -43,7 +43,7 @@ try:
     INSERT INTO cartoes (id, numero, cvv, limite, validade, cliente, status)
     VALUES
         (1, '8888 2222 3333 4444', '564', 9999.00, '2023-08-26', 'Gal Costa', 'ATIVO'),
-        (2, '7777 2222 3333 4444', '564', 6750.00, '2022-10-08', 'Luiz Gonzaga', 'INATIVO'),
+        (2, '7777 2222 3333 4444', '564', 6750.00, '2022-10-08', 'Luiz Gonzaga', 'CANCELADO'),
         (3, '5555 6666 3333 4444', '014', 22500.00, '2025-10-14', 'Pixinguinha', 'ATIVO'),
         (4, '5555 2222 3333 4444', '312', 5000.00, '2024-10-16', 'Tom Jobim', 'ATIVO'),
         (5, '1111 2222 3333 4444', '564', 10000.00, '2024-10-01', 'Elis Regina', 'ATIVO'),

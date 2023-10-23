@@ -1,10 +1,9 @@
-from datetime import date
+from datetime import date, datetime
 
-from sqlalchemy import String, Numeric, Date
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Numeric, Date, ForeignKey, DateTime
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import db
-from excecoes import ValorExcedidoException
 
 
 class Cartao(db.Model):
@@ -44,49 +43,21 @@ class Cartao(db.Model):
         return f'Cartao(id={self.id!r}, numero={self.numero!r}, cvv={self.cvv!r}, validade={self.validade!r}, limite={self.limite!r}, cliente={self.cliente!r}, status={self.status!r})'
 
 
-class Compra:
+class Compra(db.Model):
+    __tablename__ = "compras"
 
-    def __init__(self, valor, data, estabelecimento, categoria, cartao, id=None):
-        self.__set__valor(valor)
-        self.__data = data
-        self.__set__estabelecimento(estabelecimento)
-        self.__categoria = categoria.strip()
-        self.__set__cartao(cartao)
-        self.__id = id
-        self.valida_compra()
+    id: Mapped[int] = mapped_column(primary_key=True)
 
-    @property
-    def valor(self):
-        return self.__valor
+    valor: Mapped[float] = mapped_column(Numeric(precision=15, scale=2))
+    data: Mapped[datetime] = mapped_column(DateTime())
+    estabelecimento: Mapped[str] = mapped_column(String(1000))
+    categoria: Mapped[str] = mapped_column(String(255))
 
-    @property
-    def categoria(self):
-        return self.__categoria
+    cartao_id: Mapped[int] = mapped_column(ForeignKey("cartoes.id"))
+    cartao: Mapped['Cartao'] = relationship()
 
-    def __set__valor(self, valor):
-        if valor <= 0:
-            raise ValueError(f"O valor {valor} deve ser superior a zero")
-        self.__valor = valor
-
-    def __set__cartao(self, cartao):
-        if cartao is None:
-            raise ValueError("É obrigatório um cartão")
-        self.__cartao = cartao
-
-    def __set__estabelecimento(self, estabelecimento):
-        limite_caracteres = 30
-        tamanho_estabelecimento = len(estabelecimento)
-        if tamanho_estabelecimento > limite_caracteres:
-            raise ValueError(
-                f'Estabelecimento com {tamanho_estabelecimento} caracteres é superior ao limite de {limite_caracteres} caracteres')
-        self.__estabelecimento = estabelecimento.strip()
-
-    def valida_compra(self):
-        limite = self.__cartao.limite
-        valor = self.__valor
-        if valor > limite:
-            valor_excedido = valor - limite
-            raise ValorExcedidoException(f'O valor da compra excedeu ${valor_excedido} do limite')
+    def __repr__(self) -> str:
+        return f'Compra(id={self.id!r}, valor={self.valor!r}, data={self.data!r}, estabelecimento={self.estabelecimento!r}, categoria={self.categoria!r}, cartao={self.cartao!r})'
 
     def __str__(self):
         return f'Compra: {self.__valor} no dia {self.__data} em {self.__estabelecimento} no cartão {self.__cartao.numero}'

@@ -76,6 +76,12 @@ def formulario_compra():
 
 @app.route('/compras/cadastrar', methods=['POST'])
 def cadastra_compra():
+    use_cases.cadastra_compra(
+        request.form['cartao'],
+        request.form['valor'],
+        request.form['categoria'],
+        request.form['estabelecimento']
+    )
     return redirect('/compras/formulario')
 
 

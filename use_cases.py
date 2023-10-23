@@ -1,4 +1,3 @@
-from collections import defaultdict
 from datetime import date
 from datetime import datetime
 from random import randint
@@ -24,8 +23,6 @@ def define_validade_do_cartao():
     validade = date.today() + relativedelta(years=4, months=6, day=31)
     return validade
 
-banco_compras = []
-
 
 def lista_cartoes():
     comando = select(Cartao).order_by(Cartao.cliente, Cartao.numero)
@@ -50,27 +47,15 @@ def cadastra_cartao(cliente, limite):
 
 
 def cadastra_compra(cartao_id, valor, categoria, estabelecimento):
-    global sequencia_ids, banco_compras
-
     cartao = pesquisa_cartao_por_id(cartao_id)
+    if not cartao:
+        raise ValueError('Cartão não encontrado')
 
     agora = datetime.now()
-    nova_compra = Compra(valor=valor, categoria=categoria, estabelecimento=estabelecimento, cartao=cartao, data=agora,
-                         id=sequencia_ids)
+    compra = Compra(valor=valor, categoria=categoria, estabelecimento=estabelecimento, cartao=cartao, data=agora)
 
-    banco_compras.append(nova_compra)
-
-
-def lista_compras():
-    return banco_compras
-
-
-def monta_relatorio_gastos_por_categoria():
-    gasto_por_categoria = defaultdict(float)
-    for compra in lista_compras():
-        gasto_por_categoria[compra.categoria] += compra.valor
-
-    return gasto_por_categoria
+    db.session.add(compra)
+    db.session.commit()
 
 
 def define_limite(cartao_id, limite):
